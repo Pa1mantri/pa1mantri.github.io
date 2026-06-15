@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pavan Mantri — VLSI Portfolio</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy:      #1e3a5f;
+            --navy-mid:  #2c5282;
+            --blue:      #2563eb;
+            --blue-lt:   #3b82f6;
+            --text:      #1e293b;
+            --text-2:    #64748b;
+            --bg:        #ffffff;
+            --bg-alt:    #f7f9fc;
+            --border:    #e2e8f0;
+            --tag-bg:    #eff6ff;
+            --tag-text:  #1d4ed8;
+            --green:     #16a34a;
+            --purple:    #7c3aed;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: sticky; top: 0; z-index: 200;
+            background: var(--navy);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 2rem; height: 54px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+        }
+        .nav-brand { font-weight: 700; font-size: 1rem; color: #fff; letter-spacing: -0.2px; }
+        .nav-links  { display: flex; gap: 1.4rem; }
+        .nav-links a {
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-size: 0.82rem; font-weight: 500; transition: color 0.15s;
+        }
+        .nav-links a:hover { color: #fff; }
+
+        /* ── HERO ── */
+        #hero {
+            background: linear-gradient(140deg, var(--navy) 0%, var(--navy-mid) 100%);
+            color: #fff;
+            padding: 5.5rem 2rem 4.5rem;
+            text-align: center;
+        }
+        #hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 0.4rem; }
+        .hero-role {
+            font-size: 1.05rem; font-weight: 500; color: #93c5fd;
+            letter-spacing: 0.3px; margin-bottom: 1.6rem;
+        }
+        .hero-summary {
+            max-width: 780px; margin: 0 auto 2.2rem;
+            font-size: 0.97rem; line-height: 1.85;
+            color: rgba(255,255,255,0.87);
+        }
+        .hero-links { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            padding: 0.55rem 1.25rem; border-radius: 6px;
+            font-size: 0.84rem; font-weight: 600;
+            text-decoration: none; cursor: pointer; border: none; transition: all 0.15s;
+        }
+        .btn-white   { background: #fff; color: var(--navy); }
+        .btn-white:hover { background: #f1f5f9; }
+        .btn-ghost   { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.38); }
+        .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,0.09); }
+
+        /* ── SHARED LAYOUT ── */
+        .section { padding: 4.5rem 2rem; }
+        .section.alt { background: var(--bg-alt); }
+        .container { max-width: 1120px; margin: 0 auto; }
+        .sec-head { margin-bottom: 2.5rem; }
+        .sec-title {
+            font-size: 1.45rem; font-weight: 700; color: var(--navy);
+            margin-bottom: 0.35rem;
+        }
+        .divider { width: 44px; height: 3px; background: var(--blue); border-radius: 2px; margin-bottom: 0.6rem; }
+        .sec-sub  { color: var(--text-2); font-size: 0.9rem; }
+
+        /* ── VLSI STACK ── */
+        .flow-row {
+            display: flex; align-items: center;
+            justify-content: center; flex-wrap: wrap;
+            gap: 0.25rem; margin-bottom: 1.25rem;
+        }
+        .flow-node {
+            background: var(--blue); color: #fff;
+            padding: 0.65rem 1.15rem; border-radius: 8px;
+            font-size: 0.78rem; font-weight: 700;
+            text-align: center; min-width: 108px;
+            box-shadow: 0 2px 10px rgba(37,99,235,0.28);
+            position: relative;
+        }
+        .flow-node.green { background: var(--green); box-shadow: 0 2px 10px rgba(22,163,74,0.28); }
+        .flow-node.purple { background: var(--purple); box-shadow: 0 2px 10px rgba(124,58,237,0.28); min-width: 260px; }
+        .flow-node small {
+            display: block; font-size: 0.63rem;
+            color: rgba(255,255,255,0.72); font-weight: 400; margin-top: 2px;
+        }
+        .flow-arrow { color: var(--text-2); font-size: 1.1rem; padding: 0 0.15rem; }
+
+        .stack-legend {
+            display: flex; gap: 1.25rem; flex-wrap: wrap;
+            justify-content: center; margin-top: 1.5rem;
+        }
+        .leg { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--text-2); }
+        .leg-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        /* ── FILTER TABS ── */
+        .filter-tabs { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+        .ftab {
+            padding: 0.38rem 0.95rem; border-radius: 20px;
+            font-size: 0.78rem; font-weight: 600; cursor: pointer;
+            border: 1.5px solid var(--border); background: #fff;
+            color: var(--text-2); transition: all 0.15s;
+        }
+        .ftab:hover, .ftab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+
+        /* ── PROJECT CARDS ── */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 1.15rem;
+        }
+        .pcard {
+            background: #fff; border: 1px solid var(--border); border-radius: 10px;
+            padding: 1.2rem; display: flex; flex-direction: column; gap: 0.7rem;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .pcard:hover { box-shadow: 0 5px 22px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .pcard.hi { border-color: #93c5fd; background: #fafcff; }
+
+        .pcard-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+        .pcard-title { font-size: 0.92rem; font-weight: 600; color: var(--text); line-height: 1.4; flex: 1; }
+
+        .badge {
+            font-size: 0.62rem; font-weight: 700; padding: 0.18rem 0.5rem;
+            border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+        }
+        .b-tp   { background: #fef3c7; color: #92400e; }
+        .b-pd   { background: #dbeafe; color: #1e40af; }
+        .b-rtl  { background: #dcfce7; color: #14532d; }
+        .b-anl  { background: #f3e8ff; color: #581c87; }
+        .b-tls  { background: #fce7f3; color: #831843; }
+        .b-new  { background: #fef9c3; color: #713f12; }
+
+        .pcard-desc { font-size: 0.83rem; color: var(--text-2); line-height: 1.65; flex: 1; }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.28rem; }
+        .tag {
+            font-size: 0.68rem; font-weight: 500;
+            background: var(--tag-bg); color: var(--tag-text);
+            padding: 0.16rem 0.48rem; border-radius: 4px;
+        }
+        .pcard-actions { display: flex; gap: 0.45rem; margin-top: auto; }
+        .btn-s {
+            font-size: 0.74rem; padding: 0.32rem 0.7rem; border-radius: 5px;
+            font-weight: 600; text-decoration: none; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 0.28rem;
+            border: 1.5px solid var(--border); background: #fff;
+            color: var(--text); transition: all 0.15s;
+        }
+        .btn-s:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+        .btn-s.demo { border-color: var(--blue); color: var(--blue); }
+        .btn-s.demo:hover { background: var(--blue); color: #fff; }
+
+        /* ── VIDEO SECTION ── */
+        .vid-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.4rem;
+        }
+        .vid-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+        .vid-label {
+            padding: 0.8rem 1rem; font-size: 0.875rem; font-weight: 600;
+            color: var(--text); background: var(--bg-alt);
+            border-bottom: 1px solid var(--border);
+        }
+        .vid-label span { font-size: 0.74rem; color: var(--text-2); font-weight: 400; display: block; margin-top: 2px; }
+        video { width: 100%; display: block; background: #000; max-height: 210px; }
+        .yt-wrap { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; }
+        .yt-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+
+        /* ── INTERNSHIP ── */
+        .exp-card {
+            background: #fff; border: 1px solid var(--border); border-radius: 10px;
+            padding: 1.5rem; display: flex; gap: 1.25rem; align-items: flex-start;
+        }
+        .exp-logo {
+            width: 58px; height: 58px; border-radius: 8px;
+            background: var(--navy); display: flex; align-items: center;
+            justify-content: center; flex-shrink: 0;
+            font-size: 0.62rem; font-weight: 800; color: #fff;
+            text-align: center; line-height: 1.3; letter-spacing: 0.3px;
+        }
+        .exp-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .exp-meta  { font-size: 0.8rem; color: var(--text-2); margin-bottom: 0.65rem; }
+        .exp-desc  { font-size: 0.86rem; color: var(--text-2); line-height: 1.7; }
+        .exp-desc a { color: var(--blue); }
+
+        /* ── HACKATHONS ── */
+        .hack-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.1rem;
+        }
+        .hack-card {
+            background: #fff; border: 1px solid var(--border); border-radius: 10px;
+            padding: 1.2rem 1.4rem; display: flex; gap: 1rem; align-items: flex-start;
+        }
+        .trophy { font-size: 2rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+        .hack-title { font-size: 0.93rem; font-weight: 700; margin-bottom: 0.2rem; line-height: 1.4; }
+        .hack-meta  { font-size: 0.78rem; color: var(--text-2); margin-bottom: 0.45rem; }
+        .hack-desc  { font-size: 0.83rem; color: var(--text-2); line-height: 1.6; }
+        .hack-desc a { color: var(--blue); }
+
+        /* ── CERTS ── */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 0.75rem;
+        }
+        .cert-item {
+            background: #fff; border: 1px solid var(--border); border-radius: 8px;
+            padding: 0.9rem 1rem; display: flex; align-items: flex-start; gap: 0.7rem;
+            font-size: 0.86rem;
+        }
+        .cert-icon { color: var(--blue); flex-shrink: 0; font-size: 1.05rem; margin-top: 1px; }
+        .cert-name { font-weight: 600; }
+        .cert-from { font-size: 0.74rem; color: var(--text-2); margin-top: 2px; }
+
+        /* ── EDUCATION ── */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.1rem;
+        }
+        .edu-card {
+            background: #fff; border: 1px solid var(--border); border-radius: 10px;
+            padding: 1.2rem 1.3rem;
+            border-left: 4px solid var(--blue);
+        }
+        .edu-deg  { font-size: 0.97rem; font-weight: 700; }
+        .edu-uni  { font-size: 0.88rem; color: var(--blue); font-weight: 500; margin: 0.2rem 0; }
+        .edu-meta { font-size: 0.78rem; color: var(--text-2); }
+
+        /* ── SILICON GALLERY ── */
+        #silicon {
+            background: #0d1117;
+            padding: 4.5rem 2rem;
+        }
+        #silicon .sec-title { color: #e6edf3; }
+        #silicon .sec-sub   { color: #8b949e; }
+        #silicon .divider   { background: #58a6ff; }
+        #silicon .sec-head  { margin-bottom: 2.5rem; }
+
+        .silicon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .sil-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px; overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+        }
+        .sil-card:hover {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 1px #58a6ff40, 0 10px 36px rgba(88,166,255,0.14);
+            transform: translateY(-4px);
+        }
+
+        .sil-img-wrap {
+            position: relative; overflow: hidden;
+            height: 230px; background: #0d1117;
+        }
+        .sil-img-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.45s ease;
+            display: block;
+        }
+        .sil-card:hover .sil-img-wrap img { transform: scale(1.07); }
+
+        .sil-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.35) 55%, transparent 100%);
+            display: flex; align-items: flex-end; padding: 1rem;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .sil-card:hover .sil-overlay { opacity: 1; }
+
+        .sil-zoom-btn {
+            background: rgba(88,166,255,0.18);
+            border: 1px solid rgba(88,166,255,0.55);
+            color: #58a6ff; padding: 0.38rem 0.9rem;
+            border-radius: 6px; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .sil-body { padding: 1rem 1.15rem 1.2rem; }
+
+        .sil-badges { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.55rem; }
+        .sil-badge {
+            font-size: 0.6rem; font-weight: 800;
+            padding: 0.18rem 0.52rem; border-radius: 4px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .sb-gdsii { background: rgba(88,166,255,0.12);  color: #58a6ff; border: 1px solid rgba(88,166,255,0.28); }
+        .sb-fab   { background: rgba(63,185,80,0.12);   color: #3fb950; border: 1px solid rgba(63,185,80,0.28); }
+        .sb-pdk   { background: rgba(210,153,34,0.12);  color: #d29922; border: 1px solid rgba(210,153,34,0.28); }
+        .sb-tool  { background: rgba(188,140,255,0.12); color: #bc8cff; border: 1px solid rgba(188,140,255,0.28); }
+
+        .sil-title { font-size: 0.96rem; font-weight: 700; color: #e6edf3; margin-bottom: 0.3rem; line-height: 1.35; }
+        .sil-desc  { font-size: 0.79rem; color: #8b949e; line-height: 1.6; }
+
+        /* Lightbox */
+        #sil-lightbox {
+            display: none; position: fixed; inset: 0; z-index: 700;
+            background: rgba(0,0,0,0.94);
+            align-items: center; justify-content: center; flex-direction: column;
+            gap: 1rem; padding: 1.5rem;
+        }
+        #sil-lightbox.open { display: flex; }
+        #sil-lb-title { color: #e6edf3; font-weight: 600; font-size: 0.95rem; }
+        #sil-lb-img {
+            max-width: 94vw; max-height: 82vh;
+            border-radius: 8px; object-fit: contain;
+            border: 1px solid #30363d;
+            box-shadow: 0 0 60px rgba(88,166,255,0.15);
+        }
+        #sil-lb-close {
+            background: #21262d; border: 1px solid #30363d;
+            color: #e6edf3; padding: 0.45rem 1.5rem;
+            border-radius: 6px; font-weight: 700; cursor: pointer;
+            font-size: 0.84rem; transition: background 0.15s;
+        }
+        #sil-lb-close:hover { background: #30363d; }
+
+        /* ── HOBBIES ── */
+        .currently-reading {
+            background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+            border: 1.5px solid #fcd34d;
+            border-radius: 12px;
+            padding: 1.4rem 1.6rem;
+            display: flex; gap: 1.25rem; align-items: flex-start;
+            margin-bottom: 2rem;
+            position: relative; overflow: hidden;
+        }
+        .currently-reading::before {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: #f59e0b;
+        }
+        .book-icon { font-size: 2.2rem; flex-shrink: 0; line-height: 1; }
+        .cr-badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            background: #f59e0b; color: #fff;
+            font-size: 0.65rem; font-weight: 700;
+            padding: 0.18rem 0.55rem; border-radius: 4px;
+            text-transform: uppercase; letter-spacing: 0.4px;
+            margin-bottom: 0.4rem;
+        }
+        .cr-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #fff; animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
+        }
+        .cr-title  { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
+        .cr-author { font-size: 0.85rem; color: var(--text-2); }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.85rem;
+        }
+        .book-card {
+            background: #fff; border: 1px solid var(--border); border-radius: 9px;
+            padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.4rem;
+        }
+        .book-card .done {
+            font-size: 0.62rem; font-weight: 700; color: var(--green);
+            text-transform: uppercase; letter-spacing: 0.4px;
+        }
+        .book-card .b-title  { font-size: 0.875rem; font-weight: 600; line-height: 1.35; }
+        .book-card .b-author { font-size: 0.75rem; color: var(--text-2); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--navy); color: rgba(255,255,255,0.65);
+            text-align: center; padding: 2.2rem 2rem; font-size: 0.8rem;
+        }
+        footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+        footer a:hover { color: #fff; }
+        .foot-links { display: flex; justify-content: center; gap: 1.6rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+
+        /* ── VIDEO MODAL ── */
+        #vmodal {
+            display: none; position: fixed; inset: 0; z-index: 500;
+            background: rgba(0,0,0,0.88);
+            align-items: center; justify-content: center; flex-direction: column; gap: 1rem;
+        }
+        #vmodal.open { display: flex; }
+        #vmodal-title { color: #fff; font-weight: 600; font-size: 0.95rem; max-width: 90vw; text-align: center; }
+        #vmodal iframe { width: min(92vw, 900px); aspect-ratio: 16/9; border-radius: 8px; border: 0; }
+        #vmodal-close {
+            background: #fff; border: none; padding: 0.45rem 1.4rem;
+            border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.85rem;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            #hero h1   { font-size: 2rem; }
+            .flow-row  { gap: 0.2rem; }
+            .flow-arrow{ display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+    <span class="nav-brand">Pavan Mantri</span>
+    <div class="nav-links">
+        <a href="#stack">VLSI Stack</a>
+        <a href="#silicon">Silicon Gallery</a>
+        <a href="#projects">Projects</a>
+        <a href="#demos">Demos</a>
+        <a href="#experience">Internship</a>
+        <a href="#hackathons">Hackathons</a>
+        <a href="#hobbies">Hobbies</a>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+    <h1>Pavan Mantri</h1>
+    <div class="hero-role">Physical Design Engineer &nbsp;·&nbsp; RTL to GDSII &nbsp;·&nbsp; Analog &amp; Mixed-Signal &nbsp;·&nbsp; Tapeout</div>
+    <p class="hero-summary">
+        VLSI engineer with a Master's in Microelectronics from Liverpool John Moores University. Re-entered the field
+        following the availability of open-source PDKs (Sky130, IHP), building deep hands-on expertise across the
+        complete IC design stack — RTL design, synthesis, physical design, static timing analysis, analog circuit
+        design, and silicon tapeout. Projects span both digital and analog domains, including a real silicon tapeout
+        via TinyTapeout, PLL &amp; VCO design using eSim with IHP PDK integration, and multiple RISC-V SoC
+        implementations — a breadth rare among individual contributors.
+    </p>
+    <div class="hero-links">
+        <a href="https://github.com/Pa1mantri" target="_blank" class="btn btn-white">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/pavan-mantri-aa842924b" target="_blank" class="btn btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+        </a>
+        <a href="mailto:mantrikr@gmail.com" class="btn btn-ghost">
+            ✉&nbsp; mantrikr@gmail.com
+        </a>
+        <a href="Pavan_Mantri.pdf" download class="btn btn-ghost">
+            ↓&nbsp; Download CV
+        </a>
+    </div>
+</section>
+
+<!-- ===== VLSI STACK ===== -->
+<section id="stack" class="section alt">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">VLSI Stack Coverage</h2>
+            <div class="divider"></div>
+            <p class="sec-sub">Projects spanning every major stage of the IC design flow — from specification to silicon</p>
+        </div>
+
+        <!-- Main digital flow -->
+        <div class="flow-row">
+            <div class="flow-node">RTL DESIGN<small>8 projects</small></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-node">FPGA VERIFY<small>2 projects</small></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-node">SYNTHESIS<small>3 projects</small></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-node">PHYS DESIGN<small>5 projects</small></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-node">STA<small>3 projects</small></div>
+            <span class="flow-arrow">→</span>
+            <div class="flow-node green">TAPEOUT ✓<small>Silicon shipped</small></div>
+        </div>
+
+        <!-- Analog branch -->
+        <div class="flow-row" style="margin-top: 0.6rem;">
+            <div class="flow-node purple">
+                ANALOG &amp; MIXED-SIGNAL &nbsp;·&nbsp; PLL &nbsp;·&nbsp; VCO &nbsp;·&nbsp; CMOS Characterization
+                <small>eSim · ngspice · xschem · IHP sg13g2 · Sky130</small>
+            </div>
+        </div>
+
+        <div class="stack-legend">
+            <span class="leg"><span class="leg-dot" style="background:var(--blue)"></span> Digital / RTL flow</span>
+            <span class="leg"><span class="leg-dot" style="background:var(--green)"></span> Real silicon tapeout (TinyTapeout tt07)</span>
+            <span class="leg"><span class="leg-dot" style="background:var(--purple)"></span> Analog &amp; mixed-signal</span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SILICON GALLERY ===== -->
+<section id="silicon">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Silicon Gallery</h2>
+            <div class="divider"></div>
+            <p class="sec-sub">Physical design outputs — from floorplan DEF to final GDSII — one taped out to real silicon</p>
+        </div>
+
+        <div class="silicon-grid">
+
+            <!-- CDC FIFO -->
+            <div class="sil-card" onclick="openSilicon('cdc_fifo.png','Asynchronous CDC FIFO — TinyTapeout tt07')">
+                <div class="sil-img-wrap">
+                    <img src="cdc_fifo.png" alt="CDC FIFO GDSII layout" loading="lazy">
+                    <div class="sil-overlay">
+                        <span class="sil-zoom-btn">⊕ &nbsp;View Full Layout</span>
+                    </div>
+                </div>
+                <div class="sil-body">
+                    <div class="sil-badges">
+                        <span class="sil-badge sb-gdsii">GDSII</span>
+                        <span class="sil-badge sb-fab">✓ Sent to Foundry</span>
+                        <span class="sil-badge sb-pdk">Sky130</span>
+                        <span class="sil-badge sb-tool">TinyTapeout tt07</span>
+                    </div>
+                    <div class="sil-title">Asynchronous CDC FIFO</div>
+                    <div class="sil-desc">
+                        Taped out via the TinyTapeout (tt07) shuttle. 8-bit wide async clock-domain crossing FIFO
+                        preventing metastability between independent clock domains. Densely packed standard cell
+                        placement and routing visible across the die area.
+                    </div>
+                    <a href="https://gds-viewer.tinytapeout.com/?model=https://raw.githubusercontent.com/Pa1mantri/tt07_cdc_fifo/main/gds/tt_um_pa1mantri_cdc_fifo.gds"
+                       target="_blank"
+                       style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.85rem;
+                              background:#58a6ff;color:#0d1117;padding:0.42rem 0.9rem;
+                              border-radius:6px;font-size:0.75rem;font-weight:800;
+                              text-decoration:none;letter-spacing:0.2px;
+                              transition:background 0.15s;"
+                       onmouseover="this.style.background='#79b8ff'"
+                       onmouseout="this.style.background='#58a6ff'">
+                        ⬡ &nbsp;View in 3D
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Custom RISC-V SoC -->
+            <div class="sil-card" onclick="openSilicon('RISC-V_customised_core.png','Customised RISC-V SoC — ASIP for Clap Switch')">
+                <div class="sil-img-wrap">
+                    <img src="RISC-V_customised_core.png" alt="Custom RISC-V core GDSII layout" loading="lazy">
+                    <div class="sil-overlay">
+                        <span class="sil-zoom-btn">⊕ &nbsp;View Full Layout</span>
+                    </div>
+                </div>
+                <div class="sil-body">
+                    <div class="sil-badges">
+                        <span class="sil-badge sb-pdk">Sky130</span>
+                        <span class="sil-badge sb-fab">Hard Macros</span>
+                        <span class="sil-badge sb-tool">Magic VLSI</span>
+                    </div>
+                    <div class="sil-title">Customised RISC-V SoC — Clap Switch ASIP</div>
+                    <div class="sil-desc">
+                        Application-specific RISC-V core reduced from 50 K to 15 K standard cells by stripping
+                        the ISA to only the required subset. Two 1 kB SRAM <strong style="color:#e6edf3;">hard macros</strong>
+                        — <em>data_mem</em> and <em>inst_mem</em> — are clearly visible as large rectangular
+                        blocks placed in the floorplan alongside the standard cell logic.
+                    </div>
+                </div>
+            </div>
+
+            <!-- VSDMemSoc -->
+            <div class="sil-card" onclick="openSilicon('vsdmemsoc.png','VSDMemSOC — Physical Design RTL2GDSII')">
+                <div class="sil-img-wrap">
+                    <img src="vsdmemsoc.png" alt="VSDMemSoc GDSII layout" loading="lazy">
+                    <div class="sil-overlay">
+                        <span class="sil-zoom-btn">⊕ &nbsp;View Full Layout</span>
+                    </div>
+                </div>
+                <div class="sil-body">
+                    <div class="sil-badges">
+                        <span class="sil-badge sb-gdsii">GDSII</span>
+                        <span class="sil-badge sb-gdsii">Post-Route</span>
+                        <span class="sil-badge sb-pdk">Sky130</span>
+                        <span class="sil-badge sb-tool">OpenLane</span>
+                    </div>
+                    <div class="sil-title">VSDMemSOC — Final GDSII After Routing</div>
+                    <div class="sil-desc">
+                        Final GDSII output after completed place-and-route of the VSDMemSOC design. The macro
+                        core with I/O ring is clearly visible, surrounded by dense routed standard cell logic.
+                        Ready for foundry submission — generated via the OpenLane automated PnR flow.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div id="sil-lightbox">
+    <div id="sil-lb-title"></div>
+    <img id="sil-lb-img" src="" alt="">
+    <button id="sil-lb-close" onclick="closeSilicon()">✕ &nbsp; Close</button>
+</div>
+
+<!-- ===== PROJECTS ===== -->
+<section id="projects" class="section">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Projects</h2>
+            <div class="divider"></div>
+            <p class="sec-sub">13 public repositories covering the full VLSI design stack</p>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="ftab active" onclick="filter('all',this)">All (13)</button>
+            <button class="ftab" onclick="filter('tapeout',this)">Tapeout &amp; Physical Design (5)</button>
+            <button class="ftab" onclick="filter('rtl',this)">RTL &amp; SoC (5)</button>
+            <button class="ftab" onclick="filter('analog',this)">Analog &amp; Mixed-Signal (2)</button>
+            <button class="ftab" onclick="filter('tools',this)">Tools &amp; Scripting (1)</button>
+        </div>
+
+        <div class="cards-grid" id="cards-grid"></div>
+    </div>
+</section>
+
+<!-- ===== DEMO VIDEOS ===== -->
+<section id="demos" class="section alt">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Project Demos</h2>
+            <div class="divider"></div>
+            <p class="sec-sub">Recorded walkthroughs of three key projects</p>
+        </div>
+        <div class="vid-grid">
+            <div class="vid-card">
+                <div class="vid-label">
+                    RTL to GDSII — PicoRV32a Core
+                    <span>Full physical implementation using OpenLane, OpenSTA, Magic</span>
+                </div>
+                <div class="yt-wrap">
+                    <iframe src="https://www.youtube.com/embed/JYgSIJCU43M" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="vid-card">
+                <div class="vid-label">
+                    Custom Inverter Cell Characterization
+                    <span>Rise/fall time, propagation delay, noise margins — ngspice + Sky130 PDK</span>
+                </div>
+                <div class="yt-wrap">
+                    <iframe src="https://www.youtube.com/embed/OvkS9i-kkCY" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="vid-card">
+                <div class="vid-label">
+                    TCL Script for Pre-Layout STA
+                    <span>Automated SDC generation from CSV specs + QoR reporting</span>
+                </div>
+                <div class="yt-wrap">
+                    <iframe src="https://www.youtube.com/embed/Z38HEatm9mY" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== INTERNSHIP ===== -->
+<section id="experience" class="section">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Internship</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="exp-card">
+            <div class="exp-logo">IIT<br>FOSSEE<br>eSim</div>
+            <div>
+                <div class="exp-title">Design and Simulation of a PLL using eSim</div>
+                <div class="exp-meta">
+                    FOSSEE, IIT Bombay &nbsp;·&nbsp; Ministry of Education, Govt. of India
+                    &nbsp;·&nbsp; FOSSEE Winter Internship 2025 &nbsp;·&nbsp; Dec 2025 – Feb 2026 &nbsp;·&nbsp; Part-time (4 hrs/day)
+                </div>
+                <p class="exp-desc">
+                    Completed the FOSSEE Winter Internship at IIT Bombay, working on the design and simulation of a
+                    Phase-Locked Loop circuit using eSim — an open-source EDA tool developed under the Ministry of
+                    Education's FOSSEE initiative. Additionally integrated the IHP sg13g2 PDK into eSim and designed
+                    a current-starved ring oscillator VCO producing 1 GHz output at 3.3 V as part of the eSim Marathon.
+                    Work available at <a href="https://fossee.in/winter-internship/2025" target="_blank">fossee.in/winter-internship/2025</a>.
+                </p>
+                <div class="tags" style="margin-top: 0.75rem;">
+                    <span class="tag">eSim</span>
+                    <span class="tag">PLL</span>
+                    <span class="tag">VCO</span>
+                    <span class="tag">IHP PDK</span>
+                    <span class="tag">ngspice</span>
+                    <span class="tag">IIT Bombay</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== HACKATHONS ===== -->
+<section id="hackathons" class="section alt">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Hackathons</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="hack-grid">
+            <div class="hack-card">
+                <div class="trophy">🏆</div>
+                <div>
+                    <div class="hack-title">Circuit Designing and Simulation Hackathon using Open Source Tools — VLSI System Design</div>
+                    <div class="hack-meta">Oct – Nov 2024 &nbsp;·&nbsp; <strong style="color:var(--navy)">Rank 12 out of 400 applicants</strong></div>
+                    <p class="hack-desc">
+                        Designed and simulated Phase-Locked Loop circuit blocks using the Sky130 PDK and open-source
+                        tools (xschem, ngspice). Demonstrated exceptional skills in circuit design, problem-solving,
+                        and effective use of open-source EDA tools.
+                        Repo: <a href="https://github.com/Pa1mantri/PLL_130nm" target="_blank">PLL_130nm</a>
+                    </p>
+                </div>
+            </div>
+            <div class="hack-card">
+                <div class="trophy">🏅</div>
+                <div>
+                    <div class="hack-title">AI/ML-Powered FPGA Design &amp; Simulation Hackathon — NIT Jamshedpur × VLSI FOR ALL</div>
+                    <div class="hack-meta">13 Dec 2025 &nbsp;·&nbsp; Industry Academia Conclave 2025 &nbsp;·&nbsp; <strong style="color:var(--navy)">Rank 25</strong></div>
+                    <p class="hack-desc">
+                        Built a 3-layer hardware neural network accelerator with custom activation logic, weight
+                        storage, and configurable datapaths supporting runtime model swapping via UART. Organised
+                        by NIT Jamshedpur in collaboration with VLSI FOR ALL Pvt Ltd as a tribute to Sir Ratan Tata.
+                        Repo: <a href="https://github.com/Pa1mantri/Hardware_Neural_Network_Accelerator" target="_blank">Hardware_Neural_Network_Accelerator</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CERTIFICATIONS ===== -->
+<section id="certifications" class="section">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Certifications &amp; Courses</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="cert-grid">
+            <div class="cert-item">
+                <span class="cert-icon">◈</span>
+                <div>
+                    <div class="cert-name">RTL2GDSII Flow using Synopsys Tools</div>
+                    <div class="cert-from">5-Day Workshop</div>
+                </div>
+            </div>
+            <div class="cert-item">
+                <span class="cert-icon">◈</span>
+                <div>
+                    <div class="cert-name">Semiconductor Fabrication 101</div>
+                    <div class="cert-from">Purdue University</div>
+                </div>
+            </div>
+            <div class="cert-item">
+                <span class="cert-icon">◈</span>
+                <div>
+                    <div class="cert-name">VSD Physical Design Flow</div>
+                    <div class="cert-from">Udemy / VSD</div>
+                </div>
+            </div>
+            <div class="cert-item">
+                <span class="cert-icon">◈</span>
+                <div>
+                    <div class="cert-name">VLSI Design</div>
+                    <div class="cert-from">CDAC</div>
+                </div>
+            </div>
+            <div class="cert-item">
+                <span class="cert-icon">◈</span>
+                <div>
+                    <div class="cert-name">RISC-V based MYTH Processor Design</div>
+                    <div class="cert-from">Redwood EDA</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== EDUCATION ===== -->
+<section id="education" class="section alt">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Education</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="edu-grid">
+            <div class="edu-card">
+                <div class="edu-deg">Master of Science — Microelectronics</div>
+                <div class="edu-uni">Liverpool John Moores University</div>
+                <div class="edu-meta">Liverpool, UK &nbsp;·&nbsp; 2010 – 2012</div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-deg">B.Tech — Electronics &amp; Communication Engineering</div>
+                <div class="edu-uni">Pragati Engineering College</div>
+                <div class="edu-meta">Kakinada, India &nbsp;·&nbsp; 2005 – 2009</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== HOBBIES ===== -->
+<section id="hobbies" class="section alt">
+    <div class="container">
+        <div class="sec-head">
+            <h2 class="sec-title">Hobbies &amp; Interests</h2>
+            <div class="divider"></div>
+            <p class="sec-sub">An avid reader across science, technology, biography, and literature</p>
+        </div>
+
+        <!-- Currently reading -->
+        <div class="currently-reading">
+            <div class="book-icon">📖</div>
+            <div>
+                <div class="cr-badge"><span class="cr-dot"></span> Currently Reading</div>
+                <div class="cr-title">The Code Breaker</div>
+                <div class="cr-author">Walter Isaacson</div>
+            </div>
+        </div>
+
+        <!-- Last 5 completed -->
+        <h3 style="font-size:0.85rem; font-weight:700; color:var(--text-2); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:1rem;">Last 5 Reads</h3>
+        <div class="books-grid">
+            <div class="book-card">
+                <span class="done">✓ Completed</span>
+                <div class="b-title">Orbital</div>
+                <div class="b-author">Samantha Harvey</div>
+            </div>
+            <div class="book-card">
+                <span class="done">✓ Completed</span>
+                <div class="b-title">Acts of God</div>
+                <div class="b-author">Kanan Gill</div>
+            </div>
+            <div class="book-card">
+                <span class="done">✓ Completed</span>
+                <div class="b-title">Outlive: The Science &amp; Art of Longevity</div>
+                <div class="b-author">Peter Attia</div>
+            </div>
+            <div class="book-card">
+                <span class="done">✓ Completed</span>
+                <div class="b-title">iWoz: Computer Geek to Cult Icon</div>
+                <div class="b-author">Steve Wozniak</div>
+            </div>
+            <div class="book-card">
+                <span class="done">✓ Completed</span>
+                <div class="b-title">Orienting: An Indian in Japan</div>
+                <div class="b-author">Pallavi Aiyar</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="foot-links">
+        <a href="https://github.com/Pa1mantri" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/pavan-mantri-aa842924b" target="_blank">LinkedIn</a>
+        <a href="mailto:mantrikr@gmail.com">mantrikr@gmail.com</a>
+        <a href="tel:+919866733796">+91 98667 33796</a>
+    </div>
+    <div>© 2026 Pavan Mantri &nbsp;·&nbsp; VLSI Portfolio</div>
+</footer>
+
+<!-- ===== VIDEO MODAL ===== -->
+<div id="vmodal">
+    <div id="vmodal-title"></div>
+    <iframe id="vmodal-vid" frameborder="0" allowfullscreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+    <button id="vmodal-close" onclick="closeVid()">✕ &nbsp;Close</button>
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+const PROJECTS = [
+    {
+        id: 1, cat: 'tapeout', hi: true,
+        title: 'Tapeout — Asynchronous CDC FIFO (TinyTapeout tt07)',
+        badge: 'Tapeout', bc: 'b-tp',
+        url: 'https://github.com/Pa1mantri/tt07_cdc_fifo',
+        desc: 'Taped out an 8-bit wide asynchronous Clock Domain Crossing FIFO using the TinyTapeout (tt07) shuttle and Sky130 PDK. Prevents metastability between unsynchronized clock domains. Optimized silicon area using dual-port RAM over SRAM to meet tapeout constraints.',
+        tags: ['SystemVerilog', 'Sky130', 'GDSII', 'CDC', 'TinyTapeout', 'Tapeout']
+    },
+    {
+        id: 2, cat: 'tapeout', hi: true,
+        title: 'RTL to GDSII Flow — PicoRV32a Core',
+        badge: 'Physical Design', bc: 'b-pd',
+        url: 'https://github.com/Pa1mantri/NASSCOM_SoC_Design',
+        desc: 'Complete RTL-to-GDSII physical implementation of the PicoRV32a RISC-V processor core. Covers floorplanning, placement, clock tree synthesis, routing, and timing closure using OpenLane, OpenSTA, and Magic VLSI.',
+        tags: ['OpenLane', 'OpenSTA', 'Magic', 'RTL2GDSII', 'PicoRV32a', 'Sky130'],
+        video: 'https://www.youtube.com/embed/JYgSIJCU43M'
+    },
+    {
+        id: 3, cat: 'tapeout',
+        title: 'Custom Standard Cell Characterization &amp; Integration into Semi-Custom ASIC Flow — PicoRV32a',
+        badge: 'Physical Design', bc: 'b-pd',
+        url: 'https://github.com/Pa1mantri/Characterisation_of_a_standard_cell',
+        desc: 'Characterised a custom CMOS inverter cell — extracting timing parameters (rise/fall time, propagation delay, noise margins) using ngspice with Sky130 PDK — and generated the LEF/LIB files required for EDA tool integration. Included the custom cell in the standard cell library and ran the complete semi-custom ASIC physical design flow for PicoRV32a through OpenLane, achieving timing closure with OpenSTA.',
+        tags: ['ngspice', 'Magic', 'LEF', 'Sky130', 'OpenLane', 'Cell Characterization'],
+        video: 'https://www.youtube.com/embed/OvkS9i-kkCY'
+    },
+    {
+        id: 6, cat: 'tapeout', hi: true,
+        title: 'VSDSquadron RTL to GDSII',
+        badge: 'Physical Design', bc: 'b-pd',
+        url: 'https://github.com/Pa1mantri/VSDSquadron_RTL_GDSII',
+        desc: 'RTL to GDSII implementation for the VSDSquadron RISC-V platform.',
+        tags: ['RTL2GDSII', 'OpenLane', 'VSDSquadron'],
+        newbadge: 'Latest'
+    },
+    {
+        id: 9, cat: 'rtl', hi: true,
+        title: 'VSDSquadron IP Design — FPGA &amp; RISC-V',
+        badge: 'RTL &amp; SoC', bc: 'b-rtl',
+        url: 'https://github.com/Pa1mantri/VSDSquadron_IP_Design',
+        desc: 'FPGA-based RISC-V implementation and IP core development on the VSDSquadron platform.',
+        tags: ['FPGA', 'RISC-V', 'Verilog', 'IP Design'],
+        newbadge: 'Latest',
+        inprogress: true
+    },
+    {
+        id: 7, cat: 'rtl', hi: true,
+        title: 'Application-Specific RISC-V SoC — Clap Switch',
+        badge: 'RTL &amp; SoC', bc: 'b-rtl',
+        url: 'https://github.com/Pa1mantri/ASIP-Design-for-ClapSwitch',
+        desc: 'Customizable RISC-V SoC with UART-based instruction bootloader and on-chip SRAM. Reduced gate count from 50 K to 15 K standard cells by deriving and implementing only the minimal ISA subset required by the application.',
+        tags: ['RISC-V', 'Verilog', 'UART', 'SRAM', 'SoC', 'ASIP']
+    },
+    {
+        id: 14, cat: 'tools',
+        title: 'TCL Script — Automated Pre-Layout STA QoR',
+        badge: 'Tools', bc: 'b-tls',
+        url: 'https://github.com/Pa1mantri/TCL_Scripting',
+        desc: 'TCL script that parses IO and clock specifications from a CSV file and auto-generates SDC constraints. Runs RTL synthesis via Yosys and pre-layout static timing analysis via OpenTimer, producing a formatted QoR report.',
+        tags: ['TCL', 'OpenTimer', 'Yosys', 'SDC', 'STA', 'Automation'],
+        video: 'https://www.youtube.com/embed/Z38HEatm9mY'
+    },
+    {
+        id: 10, cat: 'rtl',
+        title: 'Hardware Neural Network Accelerator',
+        badge: 'RTL &amp; SoC', bc: 'b-rtl',
+        url: 'https://github.com/Pa1mantri/Hardware_Neural_Network_Accelerator',
+        desc: '3-layer hardware neural network accelerator with custom activation logic, weight storage, and configurable datapaths supporting runtime model swapping via UART. Built for the AI/ML-Powered FPGA Design & Simulation Hackathon at NIT Jamshedpur × VLSI FOR ALL — Rank 25.',
+        tags: ['Verilog', 'FPGA', 'UART', 'Neural Network', 'AI/ML', 'Hackathon']
+    },
+    {
+        id: 8, cat: 'rtl',
+        title: 'Digital Design and Synthesis — VSDMemSOC',
+        badge: 'RTL &amp; SoC', bc: 'b-rtl',
+        url: 'https://github.com/Pa1mantri/Digital-Design-and-Synthesis',
+        desc: 'Pre- and post-synthesis simulation of the VSDMemSOC RISC-V SoC. Synthesis with Yosys, RTL simulation with iVerilog, waveform analysis with GTKWave, and pre-layout STA with OpenSTA.',
+        tags: ['Yosys', 'iVerilog', 'GTKWave', 'OpenSTA', 'RISC-V', 'Synthesis']
+    },
+    {
+        id: 4, cat: 'tapeout',
+        title: 'VSDMemSoc Physical Design — RTL2GDSII PnR Flow',
+        badge: 'Physical Design', bc: 'b-pd',
+        url: 'https://github.com/Pa1mantri/VSDMemSoc-Physical-Design',
+        desc: 'Complete place-and-route flow for the VSDMemSOC RISC-V SoC from RTL to final GDSII using OpenRoad, Yosys, and OpenSTA for timing signoff.',
+        tags: ['OpenRoad', 'Yosys', 'OpenSTA', 'GDSII', 'Physical Design', 'RISC-V']
+    },
+    {
+        id: 13, cat: 'analog', hi: true,
+        title: 'PLL Design — 130nm Sky130',
+        badge: 'Analog', bc: 'b-anl',
+        url: 'https://github.com/Pa1mantri/PLL_130nm',
+        desc: 'Phase-Locked Loop circuit blocks designed and simulated using the Sky130 PDK for the VLSI System Design Circuit Design and Simulation Hackathon. Rank 12 / 400 participants.',
+        tags: ['PLL', 'xschem', 'ngspice', 'Sky130', 'Analog', 'Hackathon']
+    },
+    {
+        id: 12, cat: 'analog', hi: true,
+        title: 'Current-Starved VCO — IHP sg13g2 PDK (eSim)',
+        badge: 'Analog', bc: 'b-anl',
+        url: 'https://github.com/Pa1mantri/Current_Starved_VCO_IHP',
+        desc: 'Designed a current-starved ring oscillator VCO producing 1 GHz output at 3.3 V using the IHP sg13g2 PDK in eSim. Includes IHP PDK integration into the eSim tool. Part of the IIT Bombay FOSSEE eSim Marathon.',
+        tags: ['eSim', 'IHP sg13g2', 'VCO', 'Ring Oscillator', 'Analog', 'KVCO', 'FOSSEE']
+    },
+    {
+        id: 11, cat: 'rtl',
+        title: 'RISC-V Core — MYTH Workshop',
+        badge: 'RTL &amp; SoC', bc: 'b-rtl',
+        url: 'https://github.com/Pa1mantri/RISC-V_Core_Myth',
+        desc: 'Pipelined RISC-V processor core designed in TL-Verilog as part of the RISC-V MYTH (Microprocessor for You in Thirty Hours) workshop by Redwood EDA.',
+        tags: ['TL-Verilog', 'RISC-V', 'Pipeline', 'Redwood EDA']
+    }
+];
+
+function cardHTML(p) {
+    const demoBtn = p.video
+        ? `<button class="btn-s demo" onclick="openVid('${p.video}','${p.title.replace(/'/g,"\\'")}')">▶ Watch Demo</button>`
+        : '';
+    const newBadge = p.newbadge
+        ? `<span class="badge b-new" style="margin-left:0.3rem;">${p.newbadge}</span>`
+        : '';
+    const ipBadge = p.inprogress
+        ? `<span class="badge" style="background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;margin-left:0.3rem;font-size:0.6rem;">🔄 In Progress</span>`
+        : '';
+    return `
+    <div class="pcard${p.hi?' hi':''}" data-cat="${p.cat}">
+        <div class="pcard-top">
+            <div class="pcard-title">${p.title}${newBadge}${ipBadge}</div>
+            <span class="badge ${p.bc}">${p.badge}</span>
+        </div>
+        <p class="pcard-desc">${p.desc}</p>
+        <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="pcard-actions">
+            <a href="${p.url}" target="_blank" class="btn-s">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                GitHub
+            </a>
+            ${demoBtn}
+        </div>
+    </div>`;
+}
+
+function filter(cat, btn) {
+    document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const list = cat === 'all' ? PROJECTS : PROJECTS.filter(p => p.cat === cat);
+    document.getElementById('cards-grid').innerHTML = list.map(cardHTML).join('');
+}
+
+// Silicon gallery lightbox
+function openSilicon(src, title) {
+    document.getElementById('sil-lb-img').src = src;
+    document.getElementById('sil-lb-title').textContent = title;
+    document.getElementById('sil-lightbox').classList.add('open');
+}
+function closeSilicon() {
+    document.getElementById('sil-lightbox').classList.remove('open');
+    document.getElementById('sil-lb-img').src = '';
+}
+document.getElementById('sil-lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeSilicon();
+});
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeSilicon(); closeVid(); }
+});
+
+// Video modal
+function openVid(src, title) {
+    document.getElementById('vmodal-title').textContent = title;
+    document.getElementById('vmodal-vid').src = src + '?autoplay=1';
+    document.getElementById('vmodal').classList.add('open');
+}
+function closeVid() {
+    document.getElementById('vmodal-vid').src = '';
+    document.getElementById('vmodal').classList.remove('open');
+}
+document.getElementById('vmodal').addEventListener('click', function(e) {
+    if (e.target === this) closeVid();
+});
+
+// Initial render
+filter('all', document.querySelector('.ftab'));
+</script>
+
+</body>
+</html>
